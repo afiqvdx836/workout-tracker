@@ -1376,7 +1376,7 @@ function drawPose(results) {
   }
 
   const landmarks = results.landmarks[0];
-  const minVisibility = 0.5;
+  const minVisibility = 0.25;
 
   // Mirror coordinate mapper helper
   function getCanvasCoords(landmark) {
@@ -1521,7 +1521,7 @@ function calculateAngle2D(p1, p2, p3) {
 }
 
 function getBestSide(landmarks, type) {
-  const minVisibility = 0.5;
+  const minVisibility = 0.25;
   if (type === 'elbow') {
     const leftVis = ((landmarks[11]?.visibility || 0) + (landmarks[13]?.visibility || 0) + (landmarks[15]?.visibility || 0)) / 3;
     const rightVis = ((landmarks[12]?.visibility || 0) + (landmarks[14]?.visibility || 0) + (landmarks[16]?.visibility || 0)) / 3;
@@ -1581,9 +1581,9 @@ function processPoseResults(results) {
   const guideText = document.getElementById('camera-guide-text');
 
   if (exId === 'pushups') {
-    // UP (elbow angle > 145) -> DOWN (elbow angle < 95) -> UP (elbow angle > 145)
-    const flexThreshold = 95;
-    const extendThreshold = 145;
+    // UP (elbow angle > 135) -> DOWN (elbow angle < 100) -> UP (elbow angle > 135)
+    const flexThreshold = 100;
+    const extendThreshold = 135;
 
     if (state.repDetector.state === 'UP') {
       if (angle < flexThreshold) {
@@ -1604,9 +1604,9 @@ function processPoseResults(results) {
   } 
   
   else if (exId === 'pullups') {
-    // DOWN (hanging, elbows straight > 145) -> UP (elbows bent < 85) -> DOWN
-    const flexThreshold = 85;
-    const extendThreshold = 145;
+    // DOWN (hanging, elbows straight > 135) -> UP (elbows bent < 95) -> DOWN
+    const flexThreshold = 95;
+    const extendThreshold = 135;
 
     if (state.repDetector.state === 'DOWN') {
       if (angle < flexThreshold) {
@@ -1627,9 +1627,9 @@ function processPoseResults(results) {
   } 
   
   else if (exId === 'situps') {
-    // DOWN (lying, hip straight > 140) -> UP (sitting, hip flexed < 75) -> DOWN
-    const flexThreshold = 75;
-    const extendThreshold = 140;
+    // DOWN (lying, hip straight > 115) -> UP (sitting, hip flexed < 80) -> DOWN
+    const flexThreshold = 80;
+    const extendThreshold = 115;
 
     if (state.repDetector.state === 'DOWN') {
       if (angle < flexThreshold) {
